@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/nextpr"
+
+token = ENV.fetch("NEXTPR_TOKEN")
+owner = ARGV.fetch(0)
+repository = ARGV.fetch(1)
+
+puts "nextpr v#{NextPr::VERSION}"
+puts "Querying #{owner}/#{repository}"
+
+nextpr = NextPr.find(token, owner, repository)
+
+puts "The next PR for #{owner}/#{repository} is: #{nextpr}"
