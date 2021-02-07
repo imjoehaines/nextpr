@@ -23,6 +23,8 @@ module NextPr
 
       body = JSON::parse(response.body)
 
+      # Auth errors are put directly in "message", not under and "errors" key
+      raise body["message"] if body["message"]
       raise body["errors"].map { |error| error["message"] }.join("\n") if body["errors"]
 
       extract_ids(body)
