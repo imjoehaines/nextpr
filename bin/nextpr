@@ -3,8 +3,16 @@
 require_relative "../lib/nextpr"
 
 token = ENV.fetch("NEXTPR_TOKEN")
-owner = ARGV.fetch(0)
-repository = ARGV.fetch(1)
+
+case ARGV.length
+when 1
+  owner, repository = ARGV[0].split("/", 2)
+when 2
+  owner = ARGV[0]
+  repository = ARGV[1]
+else
+  raise "Invalid arguments: #{ARGV}"
+end
 
 puts "nextpr v#{NextPr::VERSION}"
 puts "Querying #{owner}/#{repository}"
