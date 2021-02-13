@@ -3,6 +3,7 @@
 require "optparse"
 
 require_relative "../nextpr"
+require_relative "git"
 
 module NextPr
   class CliOptions
@@ -58,6 +59,8 @@ module NextPr
         parser.parse!(arguments, into: options)
 
         case arguments.length
+        when 0
+          options.owner, options.repository = NextPr::Git.detect_repository
         when 1
           options.owner, options.repository = arguments[0].split("/", 2)
         else
